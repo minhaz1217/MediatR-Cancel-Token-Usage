@@ -30,7 +30,7 @@ namespace Responder.handlers
                     response.Response = "Hello There!!!";
                     break;
             }
-            await Task.Delay(500);
+            await Task.Delay(5000, cancellationToken);
             return response;
         }
     }

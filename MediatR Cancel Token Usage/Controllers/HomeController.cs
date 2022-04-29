@@ -27,5 +27,11 @@ namespace MediatR_Cancel_Token_Usage.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("cancel-operation")]
+        public IActionResult CancelOperation()
+        {
+            return Ok(_requesterService.CancelOperation());
+        }
     }
 }

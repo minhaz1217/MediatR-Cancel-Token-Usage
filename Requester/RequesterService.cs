@@ -5,8 +5,8 @@ namespace Requester
 {
     public class RequesterService
     {
-        private readonly IMediator _medaitor; 
-
+        private readonly IMediator _medaitor;
+        static CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public RequesterService(IMediator medaitor)
         {
             _medaitor = medaitor;
@@ -18,8 +18,15 @@ namespace Requester
             {
                 Request = key
             };
-            var response = await _medaitor.Send(request);
+            cancellationTokenSource = new CancellationTokenSource(); ;
+            var response = await _medaitor.Send(request, cancellationTokenSource.Token);
             return response.Response;
+        }
+
+        public bool CancelOperation()
+        {
+            cancellationTokenSource.Cancel();
+            return cancellationTokenSource.IsCancellationRequested;
         }
     }
 }
